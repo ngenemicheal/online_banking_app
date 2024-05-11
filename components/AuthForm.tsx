@@ -19,13 +19,14 @@ import CustomFormField from "./CustomFormField";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { signUp, signIn, getLoggedInUser } from "@/lib/actions/user.actions";
+import PlaidLink from "./PlaidLink";
 
 const formSchema = (type: string) => z.object({
     firstname: type === 'sign-in' ? z.string().optional() : z.string().min(3),
     lastname: type === 'sign-in' ? z.string().optional() : z.string().min(3),
     address: type === 'sign-in' ? z.string().optional() : z.string().max(50),
     city: type === 'sign-in' ? z.string().optional() : z.string().max(50),
-    state: type === 'sign-in' ? z.string().optional() : z.string().min(3),
+    state: type === 'sign-in' ? z.string().optional() : z.string().min(2).max(2),
     postalCode: type === 'sign-in' ? z.string().optional() : z.string().min(3).max(6),
     dateOfBirth: type === 'sign-in' ? z.string().optional() : z.string().min(3),
     ssn: type === 'sign-in' ? z.string().optional() : z.string().min(3),
@@ -67,15 +68,16 @@ export default function AuthForm({ type }: { type: string }) {
       setIsLoading(true);
       try {
         if (type === 'sign-up') {
+
             const userData = {
-                firstName: values.firstname,
-                lastName: values.lastname,
-                address1: values.address,
-                city: values.city,
-                state: values.state,
-                postalCode: values.postalCode,
-                dateOfBirth: values.dateOfBirth,
-                ssn: values.ssn,
+                firstName: values.firstname!,
+                lastName: values.lastname!,
+                address1: values.address!,
+                city: values.city!,
+                state: values.state!,
+                postalCode: values.postalCode!,
+                dateOfBirth: values.dateOfBirth!,
+                ssn: values.ssn!,
                 email: values.email,
                 password: values.password,
             }
@@ -183,7 +185,9 @@ export default function AuthForm({ type }: { type: string }) {
         </div>
       </header>
       {user ? (
-        <div className="flex flex-col gap-4">{/* Plaid */}</div>
+        <div className="flex flex-col gap-4">
+          <PlaidLink user={user} variant='primary' />
+        </div>
       ) : (
         <ProfileForm /> // Render ProfileForm component
       )}
