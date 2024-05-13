@@ -1,7 +1,7 @@
 import HeaderBox from '@/components/HeaderBox'
 import PaymentTransferForm from '@/components/PaymentTransferForm'
 import React from 'react'
-import { getAccount, getAccounts } from '@/lib/actions/banks.actions';
+import { getAccounts } from '@/lib/actions/banks.actions';
 import { getLoggedInUser } from '@/lib/actions/user.actions';
 
 const Transfer = async() => {

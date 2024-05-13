@@ -32,7 +32,7 @@ const TransactionHistory = async ({ searchParams: { id, page }}: SearchParamProp
   );
 
   return (
-    <div>
+    <div className="transactions">
       <div className="transaction-header">
         <HeaderBox
           title='Transaction History'
